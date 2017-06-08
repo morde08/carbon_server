@@ -105,6 +105,7 @@ def create_account():
         'rewards': result['rewards'],
         'customer_id': result['customer_id'],
         'type': result['type'],
+        'balance': result['balance'],
         'id': result['_id'],
         'nickname': result['nickname']
     }
