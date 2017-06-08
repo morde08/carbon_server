@@ -134,7 +134,7 @@ def create_card():
     print pred[0] 
     sys.stdout.flush()
     cards.append(card)
-    return jsonify( { 'card': card } ), 201
+    return jsonify( { 'recommended_card': card['recommended'] } ), 201
 
 @application.route('/cards', methods=['GET'])
 def get_cards():
