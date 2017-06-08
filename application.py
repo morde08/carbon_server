@@ -1,12 +1,10 @@
 from flask import Flask, jsonify, request, abort, render_template
 import requests
 import json
+import socket
 
-application = Flask(__name__)
-
-@application.route('/')
-def index():
-    return render_template('purchase.html')
+TCP_IP = '192.168.18.60'
+TCP_PORT = 30
 
 accounts = [
     {
@@ -26,7 +24,7 @@ accounts = [
         "email": u'sealteam6@cap3.com',
         'phone': 12,
         'wifi_address': 8,
-        'card_number': 9,
+        'card_number': 5412753456789010,
     
     },
     {
@@ -40,6 +38,22 @@ accounts = [
     
     }
 ]
+
+application = Flask(__name__)
+
+@application.route('/')
+def index():
+    return render_template('purchase.html')
+
+@application.route('/buy')
+def buy():
+
+    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    s.connect((TCP_IP,TCP_PORT))
+    s.send("B")
+    s.close()
+
+    return render_template('buy.html')
 
 @application.route('/accounts', methods=['GET'])
 def get_accounts():
