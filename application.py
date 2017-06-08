@@ -1,12 +1,12 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, render_template
 import requests
 import json
 
 application = Flask(__name__)
 
 @application.route('/')
-def filler():
-    return 'Carbon Server'
+def index():
+    return render_template('purchase.html')
 
 accounts = [
     {
