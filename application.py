@@ -48,10 +48,10 @@ def index():
 @application.route('/buy')
 def buy():
 
-    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    s.connect((TCP_IP,TCP_PORT))
-    s.send("B")
-    s.close()
+    # s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    # s.connect((TCP_IP,TCP_PORT))
+    # s.send("B")
+    # s.close()
 
     return render_template('buy.html')
 
