@@ -114,14 +114,14 @@ def create_card():
     sys.stdout.flush()
     card = {
         #'id': accounts[-1]['id'] + 1,
-        'age': request.json.get('age', "30"),
-        'income': request.json.get('income', "50000"),
-        'cost_of_living': request.json.get('cost_of_living', "3000"),
-        'dependents': request.json.get('dependents', "2"),
-        'spending/month': request.json.get('spending/month', "5000"),
-        'credit_score': request.json.get('credit_score', "600"),
-        'delinquency': request.json.get('delinquency', "0"),
-        'marital_status': request.json.get('marital_status', "1"),
+        'age': request.json.get('age', ""),
+        'income': request.json.get('income', ""),
+        'cost_of_living': request.json.get('cost_of_living', ""),
+        'dependents': request.json.get('dependents', ""),
+        'spending/month': request.json.get('spending/month', ""),
+        'credit_score': request.json.get('credit_score', ""),
+        'delinquency': request.json.get('delinquency', ""),
+        'marital_status': request.json.get('marital_status', ""),
     }
     #print card
     sys.stdout.flush()
