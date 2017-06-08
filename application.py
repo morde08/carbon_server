@@ -13,35 +13,22 @@ TCP_PORT = 30
 accounts = [
     {
         'id': 1,
-        "first_name": u'Bob',
-        "last_name": u'Bob',
+        "first_name": u'Rich',
+        "last_name": u'Fairbanks',
         "email": u'sealteam6@cap1.com',
         'phone': 12345678,
         'wifi_address': 123456789,
-        'card_number': 1234567890,
-    
-    },
-    {
-        'id': 2,
-        "first_name": u'Jax',
-        "last_name": u'Jax',
-        "email": u'sealteam6@cap3.com',
-        'phone': 12,
-        'wifi_address': 8,
         'card_number': 5412753456789010,
-    
-    },
-    {
-        'id': 3,
-        "first_name": u'Jax',
-        "last_name": u'Jax',
-        "email": u'sealteam6@cap3.com',
-        'phone': 10,
-        'wifi_address': 4,
-        'card_number': 5,
+        'rewards': 11567,
+        'customer_id': u'5938555aa73e4942cdafd84a',
+        'balance': 8158,
+        'type': u'Savings',
+        'id': u'5938555aa73e4942cdafd84a',
+        'nickname': u'Big Baller'
     
     }
 ]
+cards = []
 
 application = Flask(__name__)
 
@@ -104,6 +91,7 @@ def create_account():
         'email': request.json.get('email', ""),
         'rewards': result['rewards'],
         'customer_id': result['customer_id'],
+        'balance': result['balance'],
         'type': result['type'],
         'balance': result['balance'],
         'id': result['_id'],
@@ -111,7 +99,7 @@ def create_account():
     }
     accounts.append(account)
     return jsonify( { 'account': account } ), 201
-    
+
 @application.route('/new_card', methods = ['POST'])
 def create_card():
     #if not request.json or not 'first_name' in request.json:
@@ -128,34 +116,6 @@ def create_card():
         'marital_status': request.json.get('marital_status', ""),
         'recommended': ""
     }
-    with open("x.csv", 'rb') as x_file: 
-        reader = csv.reader(x_file, delimiter=' ')
-        X_train = []
-        for row in reader: 
-            temp = row[0].split(',')
-            temp[5] = float(temp[5])
-            for i in range(len(temp)):
-                temp[i] = int(temp[i])
-            X_train.append(temp)
-    with open("y.csv", 'rb') as y_file: 
-        reader = csv.reader(y_file, delimiter=' ')
-        Y_train_pre = [] 
-        for row in reader: 
-            Y_train_pre.append(int(row[0]))
-
-    Y_train = []
-    Y_train.append(Y_train_pre) 
-    Y_train = np.array(Y_train).reshape((-1,1))
-
-
-    logreg = linear_model.LogisticRegression(C=1e5)
-    logreg.fit(X_train, Y_train.ravel())
-    s = pickle.dumps(logreg)
-    logreg2 = pickle.load(s)
-
-    X = ([[card['age'], card['income'], card['cost_of_living'], card['dependents'], card['spending/month'], card['credit_score'], card['delinquency'], card['marital_status']]])
-    result = logreg2.predict(X)
-    card['recommended'] = result;
 
     cards.append(card)
     return jsonify( { 'card': card } ), 201
