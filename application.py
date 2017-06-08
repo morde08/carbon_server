@@ -6,6 +6,7 @@ import numpy as np
 from sklearn import linear_model, datasets, svm
 import csv
 import pickle
+import sys
 
 TCP_IP = '192.168.18.60'
 TCP_PORT = 30
@@ -82,7 +83,7 @@ def create_account():
     result = requests.get(url).json()[0] # returns result as json
 
     account = {
-        'id': accounts[-1]['id'] + 1,
+        #'id': accounts[-1]['id'] + 1,
         'first_name': request.json['first_name'],
         'last_name': request.json.get('last_name', ""),
         'phone': request.json.get('phone', ""),
@@ -104,8 +105,11 @@ def create_account():
 def create_card():
     #if not request.json or not 'first_name' in request.json:
         #abort(400)
+    json = request.get_json(silent=True)
+    print json
+    sys.stdout.flush()
     card = {
-        'id': accounts[-1]['id'] + 1,
+        #'id': accounts[-1]['id'] + 1,
         'age': request.json.get('age', ""),
         'income': request.json.get('income', ""),
         'cost_of_living': request.json.get('cost_of_living', ""),
@@ -119,6 +123,10 @@ def create_card():
 
     cards.append(card)
     return jsonify( { 'card': card } ), 201
+
+@application.route('/cards', methods=['GET'])
+def get_cards():
+    return jsonify({'cards': cards})
 
 if __name__ == '__main__':
     application.run(debug=True)
