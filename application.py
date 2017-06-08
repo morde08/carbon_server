@@ -101,6 +101,10 @@ def create_account():
     accounts.append(account)
     return jsonify( { 'account': account } ), 201
 
+@application.route('/recommended_card', methods = ['GET'])
+def get_recommended():
+    return jsonify( { 'recommended': cards[0]['recommended'] } )
+
 @application.route('/new_card', methods = ['POST'])
 def create_card():
     #if not request.json or not 'first_name' in request.json:
@@ -134,7 +138,7 @@ def create_card():
     print pred[0] 
     sys.stdout.flush()
     cards.append(card)
-    return jsonify( { 'card': card } ), 201
+    return jsonify( {'card': card} ), 201
 
 @application.route('/cards', methods=['GET'])
 def get_cards():
