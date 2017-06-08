@@ -41,25 +41,32 @@ accounts = [
     }
 ]
 
-@application.route('/todo/api/v1.0/accounts', methods=['GET'])
+@application.route('/accounts', methods=['GET'])
 def get_accounts():
     return jsonify({'accounts': accounts})
 
-@application.route('/todo/api/v1.0/accounts/<int:account_id>', methods = ['GET'])
+@application.route('/accounts/<int:account_id>', methods = ['GET'])
 def get_account(account_id):
     account = filter(lambda t: t['id'] == account_id, accounts)
     if len(account) == 0:
         abort(404)
     return jsonify( { 'account': account[0] } )
 
-@application.route('/todo/api/v1.0/wifi_address/<int:account_card_number>', methods = ['GET'])
-def get_wifi_address(account_card_number):
+@application.route('/card_number/<int:account_card_number>', methods = ['GET'])
+def get__with_card_number(account_card_number):
     account = filter(lambda x: x['card_number'] == account_card_number, accounts)
     if len(account) == 0:
         abort(404)
     return jsonify( { 'account': account[0] } )
 
-@application.route('/todo/api/v1.0/accounts', methods = ['POST'])
+@application.route('/card_number/<int:account_wifi_address>', methods = ['GET'])
+def get_with_wifi_address(account_wifi_address):
+    account = filter(lambda x: x['wifi_address'] == account_wifi_address, accounts)
+    if len(account) == 0:
+        abort(404)
+    return jsonify( { 'account': account[0] } )
+
+@application.route('/accounts', methods = ['POST'])
 def create_account():
     #if not request.json or not 'first_name' in request.json:
         #abort(400)
